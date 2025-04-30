@@ -9,6 +9,7 @@ using ActivationVariant = std::variant< activations::Sigmoid,
                                         activations::LeakyReLU,
                                         activations::tanh,
                                         activations::ELU,
-                                        activations::Swish>;
+                                        activations::Swish,
+                                        activations::Identity>;
 
 #endif // ACTIVATIONSVARIANT_H

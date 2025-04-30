@@ -6,6 +6,7 @@
 
 using OptimizerVariant = std::variant<optimizers::GradientDescent,
                                       optimizers::MomentumOptimizer,
-                                      optimizers::AdamOptimizer>;
+                                      optimizers::AdamOptimizer,
+                                      optimizers::RMSProp>;
 
 #endif // OPTIMIZERSVARIANT_HPP
