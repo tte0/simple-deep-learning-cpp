@@ -59,6 +59,14 @@ namespace activations {
         std::vector<std::vector<double>> activation(const std::vector<std::vector<double>>& Z);
         std::vector<std::vector<double>> derivation(const std::vector<std::vector<double>>& Z);
     };
+
+    class Identity{
+    private:
+
+    public:
+        std::vector<std::vector<double>> activation(const std::vector<std::vector<double>>& Z);
+        std::vector<std::vector<double>> derivation(const std::vector<std::vector<double>>& Z);
+    };
 }
 
 #endif // ACTIVATIONS_H

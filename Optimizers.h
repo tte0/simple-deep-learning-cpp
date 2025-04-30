@@ -54,6 +54,22 @@ namespace optimizers {
         std::tuple<std::vector<std::vector<double>>,std::vector<std::vector<double>>>
         update_parameters(std::vector<std::vector<double>> weights_gradient, std::vector<std::vector<double>> biases_gradient);
     };
+
+    class RMSProp{
+    private:
+        double learning_rate;
+        double beta;
+        double epsilon;
+        size_t timestep = 0;
+        bool _built = false;
+        std::vector<std::vector<double>> squared_W;
+        std::vector<std::vector<double>> squared_b;
+    public:
+        RMSProp(double _learning_rate, double _beta, double _epsilon);
+        void build(std::pair<size_t,size_t> weights_shape, std::pair<size_t,size_t> biases_shape);
+        std::tuple<std::vector<std::vector<double>>,std::vector<std::vector<double>>>
+        update_parameters(std::vector<std::vector<double>> weights_gradient, std::vector<std::vector<double>> biases_gradient);
+    };
 } // namespace optimizers
 
 

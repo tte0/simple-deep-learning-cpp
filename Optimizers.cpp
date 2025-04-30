@@ -85,4 +85,33 @@ namespace optimizers {
             VectorOps::multiply(VectorOps::divide(corrected_moment1_b, VectorOps::add(VectorOps::sqrt(corrected_moment2_b), epsilon)), -learning_rate),
         };
     }
+
+
+    // RMSProp
+    RMSProp::RMSProp(double _learning_rate, double _beta, double _epsilon):
+        learning_rate(_learning_rate),
+        beta(_beta),
+        epsilon(_epsilon){}
+    
+    void RMSProp::build(std::pair<size_t,size_t> weights_shape, std::pair<size_t,size_t> biases_shape){
+        if(_built) return; // Avoid re-initialization
+        squared_W.assign(weights_shape.first, std::vector<double>(weights_shape.second));
+        squared_b.assign(biases_shape.first, std::vector<double>(biases_shape.second));
+        _built = true;
+    }
+
+    std::tuple<std::vector<std::vector<double>>,std::vector<std::vector<double>>>
+    RMSProp::update_parameters(std::vector<std::vector<double>> weights_gradient, std::vector<std::vector<double>> biases_gradient){
+        assert(_built);
+        timestep++;
+        squared_W = VectorOps::add(VectorOps::multiply(squared_W, beta), VectorOps::multiply(VectorOps::square(weights_gradient), 1 - beta));
+        squared_b = VectorOps::add(VectorOps::multiply(squared_b, beta), VectorOps::multiply(VectorOps::square(biases_gradient), 1 - beta));
+        
+        // the lion does not include bias correction in RMSprop
+        
+        return {
+            VectorOps::multiply(VectorOps::divide(weights_gradient, VectorOps::add(VectorOps::sqrt(squared_W), epsilon)), -learning_rate),
+            VectorOps::multiply(VectorOps::divide(biases_gradient, VectorOps::add(VectorOps::sqrt(squared_b), epsilon)), -learning_rate)
+        };
+    }
 } // namespace optimizers

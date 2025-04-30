@@ -102,4 +102,15 @@ namespace activations {
         Z_prime = VectorOps::add(Z_prime, sigmoid_Z);
         return Z_prime;
     }
+
+
+    // Identity
+    std::vector<std::vector<double>> Identity::activation(const std::vector<std::vector<double>>& Z){
+        return Z;
+    }
+    
+    std::vector<std::vector<double>> Identity::derivation(const std::vector<std::vector<double>>& Z){
+        std::vector<std::vector<double>> Z_prime(Z.size(), std::vector<double>(Z[0].size(), 1.0));// all elements 1.0
+        return Z_prime;
+    }
 } // namespace activations
